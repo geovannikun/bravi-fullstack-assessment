@@ -3,7 +3,7 @@ var lastLength = 0;
 
 while(a && a.length != lastLength){
     lastLength = a.length;
-    a = a.split("()").join("").split("[]").join("").split("{}").join("");
+	a = a.replace("()","").replace("[]","").replace("{}","");
 }
 
 if(a.length){

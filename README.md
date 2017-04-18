@@ -1,19 +1,20 @@
 # bravi-fullstack-assessment
 
-> Balanced Brackets  
+> Balanced brackets  
 > -----------------
 > ```bash 
-> (cd balanced-brackets;node index.js '()[]{}')
+> $ (cd balanced-brackets;node index.js '()[]{}')
 > ```
 
-> Contact List
+> Contact list
 > ------------
 > ```bash  
-> (cd contact-list;npm run-script start)
+> $ npm install -g loopback-cli
+> $ (cd contact-list;swagger project start)
 > ```
 
 > Weather in my city
 > ------------------
 > ```bash  
-> (cd weather-in-my-city;npm run-script bundle;npm  run-script start)
+> $ (cd weather-in-my-city;npm run-script bundle;npm  run-script start)
 > ```

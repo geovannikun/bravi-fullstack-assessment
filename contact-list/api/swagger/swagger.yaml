@@ -1,0 +1,274 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Contact List
+# during dev, should point to your local machine
+host: localhost:10010
+# basePath prefixes all resource paths 
+basePath: /
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /person:
+    x-swagger-router-controller: person
+    get:
+      operationId: getPeople
+      description: Returns the people list
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetPeopleListResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      operationId: addPerson
+      description: add a new person to the list
+      parameters:
+        - name: person
+          description: Person properties
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Person"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /person/{person_id}:
+    x-swagger-router-controller: person
+    get:
+      operationId: getPerson
+      description: get a person
+      parameters:
+        - name: person_id
+          type: number
+          in: path
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Person"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    put:
+      operationId: editPerson
+      description: update a movie
+      parameters:
+        - name: person_id
+          description: Person id
+          type: number
+          in: path
+          required: true
+        - name: person
+          description: Person properties
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Person"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      operationId: delPerson
+      description: delete a person
+      parameters:
+        - name: person_id
+          description: person id
+          type: string
+          in: path
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /person/{person_id}/contact:
+    x-swagger-router-controller: contact
+    get:
+      operationId: getContacts
+      description: Returns the people list
+      parameters:
+        - name: person_id
+          type: number
+          in: path
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetPeopleListResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      operationId: addContact
+      description: add a new person to the list
+      parameters:
+        - name: person_id
+          type: number
+          in: path
+          required: true
+        - name: contact
+          description: Contact properties
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Person"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /person/{person_id}/contact/{contact_id}:
+    x-swagger-router-controller: contact
+    get:
+      operationId: getContact
+      description: get a person
+      parameters:
+        - name: person_id
+          type: number
+          in: path
+          required: true
+        - name: contact_id
+          type: number
+          in: path
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Person"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    put:
+      operationId: editContact
+      description: update a movie
+      parameters:
+        - name: person_id
+          type: number
+          in: path
+          required: true
+        - name: contact_id
+          type: number
+          in: path
+          required: true
+        - name: contact
+          description: Contact properties
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Person"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      operationId: delContact
+      description: delete a person
+      parameters:
+        - name: person_id
+          type: number
+          in: path
+          required: true
+        - name: contact_id
+          type: number
+          in: path
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  Person:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      phone:
+        type: string
+      email:
+        type: string
+      whatsapp:
+        type: string
+      person_contact:
+        type: 
+          - integer
+          - 'null'
+  GetPeopleListResponse:
+    required:
+      - people
+    properties:
+      people:
+        type: array
+        items: 
+          $ref: "#/definitions/Person"
+  GeneralResponse:
+    type: object
+    properties:
+      success:
+        type: number
+        description: returns 1 if successful
+      description:
+        type: string
+        description: a short comment 
+    required:
+      - success
+      - description
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
