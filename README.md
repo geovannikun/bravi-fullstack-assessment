@@ -9,7 +9,7 @@
 > Contact List
 > ------------
 > ```bash  
-> (cd contact-list;)
+> (cd contact-list;npm run-script start)
 > ```
 
 > Weather in my city
