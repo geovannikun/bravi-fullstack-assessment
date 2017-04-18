@@ -9,7 +9,7 @@
 > Contact list
 > ------------
 > ```bash  
-> $ npm install -g loopback-cli
+> $ npm install -g swagger
 > $ (cd contact-list;swagger project start)
 > ```
 
