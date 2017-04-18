@@ -1,4 +1,4 @@
-var a = "()[]{}{}{{}}";
+var a = process.argv[2];
 var lastLength = 0;
 
 while(a && a.length != lastLength){
